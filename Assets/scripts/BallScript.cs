@@ -25,8 +25,8 @@ public class BallScript : MonoBehaviour
         if (coll.collider.CompareTag("Player"))
         {
             Vector2 vel;
-            vel.x = rb2d.velocity.x;
-            vel.y = (rb2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
+            vel.x = rb2d.velocity.x * 1.3f;
+            vel.y = ((rb2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3)) * 1.3f;
             rb2d.velocity = vel;
         }
     }
