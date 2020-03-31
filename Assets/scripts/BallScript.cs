@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallScript : MonoBehaviour
 {
     private Rigidbody2D rb2d;
+    public float MaxSpeed = 80;
 
     // Start is called before the first frame update
     void Start()
@@ -25,8 +26,9 @@ public class BallScript : MonoBehaviour
         if (coll.collider.CompareTag("Player"))
         {
             Vector2 vel;
-            vel.x = rb2d.velocity.x * 1.3f;
-            vel.y = ((rb2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3)) * 1.3f;
+            vel.x = Mathf.Clamp(rb2d.velocity.x * 1.2f, -MaxSpeed, MaxSpeed);
+            vel.y = Mathf.Clamp(((rb2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3)) * 1.2f, -MaxSpeed, MaxSpeed);
+            
             rb2d.velocity = vel;
         }
     }

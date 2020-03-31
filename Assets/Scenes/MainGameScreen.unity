@@ -373,7 +373,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &887793196
 BoxCollider2D:
@@ -508,7 +508,7 @@ Transform:
   m_GameObject: {fileID: 1077902171}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -13.63, y: 0.13, z: 0.44642043}
-  m_LocalScale: {x: 0.075625, y: 10.603538, z: 1.53}
+  m_LocalScale: {x: 0.075625, y: 31.274073, z: 1.53}
   m_Children: []
   m_Father: {fileID: 48627787}
   m_RootOrder: 2
@@ -654,7 +654,7 @@ Transform:
   m_GameObject: {fileID: 1384016265}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10.02, y: 0.13, z: 0.44642043}
-  m_LocalScale: {x: 0.075625, y: 10.603538, z: 1.53}
+  m_LocalScale: {x: 0.075625, y: 26.239515, z: 1.53}
   m_Children: []
   m_Father: {fileID: 48627787}
   m_RootOrder: 3
@@ -832,7 +832,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650428859}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.501, y: -1.468, z: -2.73}
+  m_LocalPosition: {x: 0, y: 0, z: -2.73}
   m_LocalScale: {x: 0.1332, y: 0.1346, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -857,7 +857,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 6e70a0e954795a5438f787a670bce4ba, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &1650428863
 CircleCollider2D:
@@ -926,7 +926,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &1715624721
 BoxCollider2D:
