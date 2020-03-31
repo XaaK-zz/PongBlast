@@ -10,8 +10,8 @@ public class BallScript : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        //Invoke("GoBall", 2);
-        this.GoBall();
+        Invoke("RestartGame", 2);
+        //this.GoBall();
     }
 
     // Update is called once per frame
@@ -25,8 +25,8 @@ public class BallScript : MonoBehaviour
         if (coll.collider.CompareTag("Player"))
         {
             Vector2 vel;
-            vel.x = rb2d.velocity.x;
-            vel.y = (rb2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3);
+            vel.x = rb2d.velocity.x * 1.3f;
+            vel.y = ((rb2d.velocity.y / 2) + (coll.collider.attachedRigidbody.velocity.y / 3)) * 1.3f;
             rb2d.velocity = vel;
         }
     }
