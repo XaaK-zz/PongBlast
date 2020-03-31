@@ -10,8 +10,8 @@ public class BallScript : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        //Invoke("GoBall", 2);
-        this.GoBall();
+        Invoke("RestartGame", 2);
+        //this.GoBall();
     }
 
     // Update is called once per frame
