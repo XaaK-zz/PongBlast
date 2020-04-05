@@ -590,6 +590,7 @@ MonoBehaviour:
   moveDown: 115
   speed: 10
   boundY: 3.6
+  playerNumber: 0
 --- !u!1 &1077902171
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,6 +1145,7 @@ MonoBehaviour:
   moveDown: 274
   speed: 10
   boundY: 3.6
+  playerNumber: 1
 --- !u!1 &1914952482
 GameObject:
   m_ObjectHideFlags: 0

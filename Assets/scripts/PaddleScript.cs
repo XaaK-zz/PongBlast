@@ -9,6 +9,7 @@ public class PaddleScript : MonoBehaviour
     public float speed = 10.0f;
     public float boundY = 2.25f;
     private Rigidbody2D rb2d;
+    public int playerNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +22,11 @@ public class PaddleScript : MonoBehaviour
     {
         
         var vel = rb2d.velocity;
-        if (Input.GetKey(moveUp))
+        if (this.IsMoveUp())
         {
             vel.y = speed;
         }
-        else if (Input.GetKey(moveDown))
+        else if (this.IsMoveDown())
         {
             vel.y = -speed;
         }
@@ -45,5 +46,47 @@ public class PaddleScript : MonoBehaviour
             pos.y = -boundY;
         }
         transform.position = pos;
+    }
+
+    public bool IsMoveUp()
+    {
+        if (hinput.gamepad.Count == 0)
+        {
+            //no gamepad - use keyboard
+            if (Input.GetKey(moveUp))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (hinput.gamepad[playerNumber].leftStick.up.pressed)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool IsMoveDown()
+    {
+        if (hinput.gamepad.Count == 0)
+        {
+            //no gamepad - use keyboard
+            if (Input.GetKey(moveDown))
+            {
+                return true;
+            }
+        }
+        else
+        {
+            if (hinput.gamepad[playerNumber].leftStick.down.pressed)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
