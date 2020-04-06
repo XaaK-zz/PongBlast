@@ -2,6 +2,7 @@
 // Contact : couvreurhenri@gmail.com, hiloqo.games@gmail.com
 
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// The main class of the hinput package, from which you can access gamepads.
@@ -52,14 +53,26 @@ public static class hinput {
 		get {
 			hUpdater.CheckInstance();
 			if (_gamepad == null) {
-				_gamepad = new List<hGamepad>();
-				for (int i=0; i<hUtils.maxGamepads; i++) _gamepad.Add(new hGamepad(i));
+				syncGamePads();
 			} else {
 				hUpdater.UpdateGamepads ();
 			} 
 
 			return _gamepad; 
 		} 
+	}
+
+	public static void syncGamePads()
+	{
+		_gamepad = new List<hGamepad>();
+		string[] names = Input.GetJoystickNames();
+		for (int i = 0; i < System.Math.Min(names.Length, hUtils.maxGamepads); i++)
+		{
+			if (names[i] != "")
+			{
+				_gamepad.Add(new hGamepad(i));
+			}
+		}
 	}
 	
 	/// <summary>

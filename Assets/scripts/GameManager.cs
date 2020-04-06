@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
         theBall = GameObject.FindGameObjectWithTag("Ball");
         PlayerScore1 = 0;
         PlayerScore2 = 0;
-        theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
+        //theBall.SendMessage("RestartGame", 0.5f, SendMessageOptions.RequireReceiver);
     }
 
     // Update is called once per frame

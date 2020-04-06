@@ -8,6 +8,7 @@ public class DropperScript : MonoBehaviour
     public KeyCode moveDown = KeyCode.G;
     private SpriteRenderer sprite;
     private bool keyUp = true;
+    public int playerNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -20,27 +21,69 @@ public class DropperScript : MonoBehaviour
     {
         var pos = transform.position;
 
-        if (keyUp)
+        if (this.IsMoveUp())
         {
-            if (Input.GetKey(moveUp))
-            {
-                pos.y += this.sprite.bounds.size.y;
-                transform.position = pos;
-                this.keyUp = false;
-            }
-            else if (Input.GetKey(moveDown))
-            {
-                pos.y -= this.sprite.bounds.size.y;
-                transform.position = pos;
-                this.keyUp = false;
-            }
+            pos.y += this.sprite.bounds.size.y;
+            transform.position = pos;
+            this.keyUp = false;
         }
-        else
+        else if (this.IsMoveDown())
         {
-            if(!Input.GetKey(moveUp) && !Input.GetKey(moveDown))
+            pos.y -= this.sprite.bounds.size.y;
+            transform.position = pos;
+            this.keyUp = false;
+        }
+    }
+
+    public bool IsMoveUp()
+    {
+        if (hinput.gamepad.Count == 0)
+        {
+            //no gamepad - use keyboard
+            if (Input.GetKey(moveUp) && this.keyUp)
+            {
+                this.keyUp = false;
+                return true;
+            }
+            else
             {
                 this.keyUp = true;
             }
         }
+        else
+        {
+            if (hinput.gamepad[playerNumber].rightStick.up.justPressed)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public bool IsMoveDown()
+    {
+        if (hinput.gamepad.Count == 0)
+        {
+            //no gamepad - use keyboard
+            if (Input.GetKey(moveDown) && this.keyUp)
+            {
+                this.keyUp = false;
+                return true;
+            }
+            else
+            {
+                this.keyUp = true;
+            }
+        }
+        else
+        {
+            if (hinput.gamepad[playerNumber].rightStick.down.justPressed)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

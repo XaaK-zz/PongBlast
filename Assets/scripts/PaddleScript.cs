@@ -15,12 +15,21 @@ public class PaddleScript : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
+     
+        
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+        string[] names = Input.GetJoystickNames();
+        if (names.Length == 0)
+        {
+            Debug.Log("No controllers");
+        }
+
         var vel = rb2d.velocity;
         if (this.IsMoveUp())
         {
@@ -50,7 +59,7 @@ public class PaddleScript : MonoBehaviour
 
     public bool IsMoveUp()
     {
-        if (hinput.gamepad.Count == 0)
+        if (hinput.gamepad.Count <= playerNumber)
         {
             //no gamepad - use keyboard
             if (Input.GetKey(moveUp))
@@ -71,7 +80,7 @@ public class PaddleScript : MonoBehaviour
 
     public bool IsMoveDown()
     {
-        if (hinput.gamepad.Count == 0)
+        if (hinput.gamepad.Count <= playerNumber)
         {
             //no gamepad - use keyboard
             if (Input.GetKey(moveDown))
