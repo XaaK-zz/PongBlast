@@ -11,5 +11,8 @@ public abstract class playerInputController
     public abstract bool IsMoveLeft();
     public abstract bool IsMoveRight();
 
+    public abstract bool IsDropAction();
+    public abstract bool IsShiftLeft();
+    public abstract bool IsShiftRight();
 }
 

@@ -16,7 +16,15 @@ public class PaddleScript : MonoBehaviour
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-        inputController = KeyboardInputController.CreateKeyboardInputController(false, this.moveUp, this.moveDown, KeyCode.None, KeyCode.None);
+        if (hinput.gamepad.Count > playerNumber)
+        {
+            inputController = GamePadInputController.CreateGamepadInputController(false, playerNumber);
+        }
+        else
+        {
+            inputController = KeyboardInputController.CreateKeyboardInputController(false, this.moveUp, this.moveDown);
+        }
+        //inputController = GamePadInputController.CreateGamepadInputController(false, playerNumber);
     }
 
     // Update is called once per frame

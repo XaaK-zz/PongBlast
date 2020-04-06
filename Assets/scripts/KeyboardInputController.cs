@@ -7,57 +7,69 @@ public class KeyboardInputController : playerInputController
     public KeyCode moveDown = KeyCode.DownArrow;
     public KeyCode moveLeft = KeyCode.LeftArrow;
     public KeyCode moveRight = KeyCode.RightArrow;
+    public KeyCode dropAction = KeyCode.Space;
+    public KeyCode shiftLeft = KeyCode.Q;
+    public KeyCode shiftRight = KeyCode.E;
 
-    protected bool[] keyUp = { true, true, true, true };
-    private enum moveDirection { Up, Down, Left, Right};
 
-    private KeyboardInputController(KeyCode _moveUp, KeyCode _moveDown, KeyCode _moveLeft, KeyCode _moveRight)
+    protected bool[] keyUp = { true, true, true, true, true, true, true };
+    private enum keyPressOptions { Up, Down, Left, Right, Action, ShiftLeft, ShiftRight};
+
+    private KeyboardInputController(KeyCode _moveUp, KeyCode _moveDown, KeyCode _moveLeft, KeyCode _moveRight,KeyCode _drop, KeyCode _shiftLeft, KeyCode _shiftRight)
     {
         this.moveUp = _moveUp;
         this.moveDown = _moveDown;
         this.moveLeft = _moveLeft;
         this.moveRight = _moveRight;
+        this.dropAction = _drop;
+        this.shiftLeft = _shiftLeft;
+        this.shiftRight = _shiftRight;
     }
 
-    static public KeyboardInputController CreateKeyboardInputController(bool _singlePress, KeyCode _moveUp, KeyCode _moveDown, KeyCode _moveLeft, KeyCode _moveRight)
+    static public KeyboardInputController CreateKeyboardInputController(bool _singlePress, KeyCode _moveUp, KeyCode _moveDown, KeyCode _moveLeft = KeyCode.None, KeyCode _moveRight = KeyCode.None,
+        KeyCode _drop = KeyCode.None, KeyCode _shiftLeft = KeyCode.None, KeyCode _shiftRight = KeyCode.None)
     {
-        KeyboardInputController controller = new KeyboardInputController(_moveUp, _moveDown, _moveLeft, _moveRight);
+        KeyboardInputController controller = new KeyboardInputController(_moveUp, _moveDown, _moveLeft, _moveRight, _drop, _shiftLeft, _shiftRight);
         controller.SinglePress = _singlePress;
         return controller;
     }
 
-    private KeyCode enumToKeyCode(moveDirection direction)
+    private KeyCode enumToKeyCode(keyPressOptions _keyPress)
     {
-        if (direction == moveDirection.Up)
+        if (_keyPress == keyPressOptions.Up)
         {
             return this.moveUp;
         }
-        else if(direction == moveDirection.Down)
+        else if(_keyPress == keyPressOptions.Down)
         {
             return this.moveDown;
         }
-        else if (direction == moveDirection.Left)
+        else if (_keyPress == keyPressOptions.Left)
         {
             return this.moveLeft;
         }
-        else if (direction == moveDirection.Right)
+        else if (_keyPress == keyPressOptions.Right)
         {
             return this.moveRight;
+        }
+        else if (_keyPress == keyPressOptions.Action)
+        {
+            return this.dropAction;
         }
         else
         {
             return KeyCode.None;
         }
     }
-    private bool isMove(moveDirection direction)
+    private bool isValidKeyPress(keyPressOptions _keyPress)
     {
         bool returnValue = false;
 
-        if (Input.GetKey(this.enumToKeyCode(direction)))
+        if (Input.GetKey(this.enumToKeyCode(_keyPress)))
         {
-            if (SinglePress && this.keyUp[(int)direction])
+            if (SinglePress && this.keyUp[(int)_keyPress])
             {
-                this.keyUp[(int)direction] = false;
+                this.keyUp[(int)_keyPress] = false;
                 returnValue = true;
             }
             else if(!SinglePress)
@@ -67,7 +79,7 @@ public class KeyboardInputController : playerInputController
         }
         else
         {
-            this.keyUp[(int)direction] = true;
+            this.keyUp[(int)_keyPress] = true;
         }
                
         return returnValue;
@@ -75,21 +87,34 @@ public class KeyboardInputController : playerInputController
 
     public override bool IsMoveUp()
     {
-        return this.isMove(moveDirection.Up);
+        return this.isValidKeyPress(keyPressOptions.Up);
     }
 
     public override bool IsMoveDown()
     {
-        return this.isMove(moveDirection.Down);
+        return this.isValidKeyPress(keyPressOptions.Down);
     }
 
     public override bool IsMoveLeft()
     {
-        return this.isMove(moveDirection.Left);
+        return this.isValidKeyPress(keyPressOptions.Left);
     }
 
     public override bool IsMoveRight()
     {
-        return this.isMove(moveDirection.Right);
+        return this.isValidKeyPress(keyPressOptions.Right);
+    }
+
+    public override bool IsDropAction()
+    {
+        return this.isValidKeyPress(keyPressOptions.Action);
+    }
+    public override bool IsShiftLeft()
+    {
+        return this.isValidKeyPress(keyPressOptions.ShiftLeft);
+    }
+    public override bool IsShiftRight()
+    {
+        return this.isValidKeyPress(keyPressOptions.ShiftRight);
     }
 }
