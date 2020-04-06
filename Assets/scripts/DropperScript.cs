@@ -6,14 +6,17 @@ public class DropperScript : MonoBehaviour
 {
     public KeyCode moveUp = KeyCode.T;
     public KeyCode moveDown = KeyCode.G;
+    public KeyCode moveLeft = KeyCode.F;
+    public KeyCode moveRight = KeyCode.H;
     private SpriteRenderer sprite;
-    private bool keyUp = true;
     public int playerNumber;
+    private playerInputController inputController;
 
     // Start is called before the first frame update
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
+        inputController = KeyboardInputController.CreateKeyboardInputController(true, this.moveUp, this.moveDown, this.moveLeft, this.moveRight);
     }
 
     // Update is called once per frame
@@ -21,69 +24,25 @@ public class DropperScript : MonoBehaviour
     {
         var pos = transform.position;
 
-        if (this.IsMoveUp())
+        if (inputController.IsMoveUp())
         {
             pos.y += this.sprite.bounds.size.y;
             transform.position = pos;
-            this.keyUp = false;
         }
-        else if (this.IsMoveDown())
+        else if (inputController.IsMoveDown())
         {
             pos.y -= this.sprite.bounds.size.y;
             transform.position = pos;
-            this.keyUp = false;
         }
-    }
-
-    public bool IsMoveUp()
-    {
-        if (hinput.gamepad.Count == 0)
+        else if (inputController.IsMoveLeft())
         {
-            //no gamepad - use keyboard
-            if (Input.GetKey(moveUp) && this.keyUp)
-            {
-                this.keyUp = false;
-                return true;
-            }
-            else
-            {
-                this.keyUp = true;
-            }
+            pos.x -= this.sprite.bounds.size.x;
+            transform.position = pos;
         }
-        else
+        else if (inputController.IsMoveRight())
         {
-            if (hinput.gamepad[playerNumber].rightStick.up.justPressed)
-            {
-                return true;
-            }
+            pos.x += this.sprite.bounds.size.x;
+            transform.position = pos;
         }
-
-        return false;
-    }
-
-    public bool IsMoveDown()
-    {
-        if (hinput.gamepad.Count == 0)
-        {
-            //no gamepad - use keyboard
-            if (Input.GetKey(moveDown) && this.keyUp)
-            {
-                this.keyUp = false;
-                return true;
-            }
-            else
-            {
-                this.keyUp = true;
-            }
-        }
-        else
-        {
-            if (hinput.gamepad[playerNumber].rightStick.down.justPressed)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

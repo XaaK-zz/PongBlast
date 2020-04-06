@@ -10,32 +10,24 @@ public class PaddleScript : MonoBehaviour
     public float boundY = 2.25f;
     private Rigidbody2D rb2d;
     public int playerNumber;
+    private playerInputController inputController;
 
     // Start is called before the first frame update
     void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();
-     
-        
-        
+        inputController = KeyboardInputController.CreateKeyboardInputController(false, this.moveUp, this.moveDown, KeyCode.None, KeyCode.None);
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        string[] names = Input.GetJoystickNames();
-        if (names.Length == 0)
-        {
-            Debug.Log("No controllers");
-        }
-
         var vel = rb2d.velocity;
-        if (this.IsMoveUp())
+        if (inputController.IsMoveUp())
         {
             vel.y = speed;
         }
-        else if (this.IsMoveDown())
+        else if (inputController.IsMoveDown())
         {
             vel.y = -speed;
         }
@@ -55,47 +47,5 @@ public class PaddleScript : MonoBehaviour
             pos.y = -boundY;
         }
         transform.position = pos;
-    }
-
-    public bool IsMoveUp()
-    {
-        if (hinput.gamepad.Count <= playerNumber)
-        {
-            //no gamepad - use keyboard
-            if (Input.GetKey(moveUp))
-            {
-                return true;
-            }
-        }
-        else
-        {
-            if (hinput.gamepad[playerNumber].leftStick.up.pressed)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    public bool IsMoveDown()
-    {
-        if (hinput.gamepad.Count <= playerNumber)
-        {
-            //no gamepad - use keyboard
-            if (Input.GetKey(moveDown))
-            {
-                return true;
-            }
-        }
-        else
-        {
-            if (hinput.gamepad[playerNumber].leftStick.down.pressed)
-            {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
