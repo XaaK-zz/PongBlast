@@ -14,7 +14,8 @@ public class DropperScript : MonoBehaviour
     private SpriteRenderer sprite;
     public int playerNumber;
     private playerInputController inputController;
-
+    public GameObject cube;
+    public GameObject me;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,10 @@ public class DropperScript : MonoBehaviour
         }
     }
 
+    public void drop(Vector3 position)
+    {
+        Instantiate(cube).transform.position = position;
+    }
     // Update is called once per frame
     void Update()
     {
@@ -57,7 +62,9 @@ public class DropperScript : MonoBehaviour
 
         if (inputController.IsDropAction())
         {
-            //Drop block into scene
+           
+            drop(me.transform.position);
+
             Debug.Log("Drop");
         }
     }
